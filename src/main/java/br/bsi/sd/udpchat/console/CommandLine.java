@@ -1,6 +1,9 @@
 package br.bsi.sd.udpchat.console;
 
+import br.bsi.sd.udpchat.actions.Controller;
+
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public class CommandLine {
     /**
@@ -46,13 +49,27 @@ public class CommandLine {
     }
 
     /**
+     * Method to check if there is a controller
+     * @return If there is a controller it will return true
+     */
+    public boolean hasController() {
+        return this.controller != null;
+    }
+
+    /**
      * Method to create a controller instance
      * @return controller instance
      */
     private Object buildController() {
         try{
             Constructor<?> cons = this.classController.getConstructor();
-            return cons.newInstance();
+            Object object = cons.newInstance();
+
+            if (object instanceof Controller) {
+                return object;
+            }
+
+            throw new Exception("Controller is not valid for command creation");
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
@@ -73,6 +90,15 @@ public class CommandLine {
 
         } catch (NoSuchMethodException e) {
             return false;
+        }
+    }
+
+    public void callAction(String[] args) {
+        try {
+            Method method = this.classController.getDeclaredMethod("command", String[].class);
+            method.invoke(this.controller, (Object) args);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

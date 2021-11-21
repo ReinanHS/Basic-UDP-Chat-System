@@ -11,6 +11,15 @@ public class Kernel {
     }
 
     /**
+     * Get the application version
+     *
+     * @return version of app
+     */
+    public String getVersion() {
+        return "0.0.1.windows";
+    }
+
+    /**
      * Runs the application.
      *
      * @param args an array of String arguments to be parsed.
@@ -18,8 +27,21 @@ public class Kernel {
     public void run(String[] args) {
 
         if (args.length > 0 && args[0] != null) {
-            this.findActions(args);
-            return;
+
+            switch (args[0]) {
+                case "--version" -> {
+                    System.out.println(this.getAppName() + " version " + this.getVersion());
+                    return;
+                }
+                case "--help" -> {
+                    this.usageHelp();
+                    return;
+                }
+                default -> {
+                    this.findActions(args);
+                    return;
+                }
+            }
         }
 
         this.usageHelp();
@@ -43,21 +65,22 @@ public class Kernel {
 
     /**
      * Method to check if a command is available.
+     *
      * @param args Command parameters
      */
     private void findActions(String[] args) {
         boolean isFindAction = false;
 
         for (CommandLine commandLine : this.commands()) {
-            if (commandLine.hasAction(args[0])) {
-                System.out.println("Tem");
+            if (commandLine.command.equals(args[0]) && commandLine.hasController()) {
+                commandLine.callAction(args);
                 isFindAction = true;
                 break;
             }
         }
 
         if (!isFindAction) {
-            System.out.println(this.getAppName()+": '"+args[0]+"' is not a "+this.getAppName()+" command. See '"+this.getAppName()+" --help'.");
+            System.out.println(this.getAppName() + ": '" + args[0] + "' is not a " + this.getAppName() + " command. See '" + this.getAppName() + " --help'.");
         }
     }
 
