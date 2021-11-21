@@ -1,6 +1,6 @@
-<center>
+<p align="center">
  <img width="300px" height="300px" src="https://github.com/ReinanHS/Basic-UDP-Chat-System/blob/main/.github/docs/assets/logo-project.png" title="Logo"/>
-</center>
+</p>
 
 
 # Basic UDP Chat System
