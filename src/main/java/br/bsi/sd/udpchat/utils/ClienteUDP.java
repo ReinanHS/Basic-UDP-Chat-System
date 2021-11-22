@@ -14,8 +14,7 @@ public class ClienteUDP {
     }
 
     public void sendText(String ipNumber, int port, String text) {
-        byte[] cartaAEnviar = new byte[100];
-        cartaAEnviar = text.getBytes();
+        byte[] cartaAEnviar = text.getBytes();
 
         try {
 

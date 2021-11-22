@@ -57,7 +57,7 @@ public class Kernel {
         stringBuilder.append("\n\nThese are common ").append(this.getAppName()).append(" commands used in various situations:\n");
 
         for (CommandLine commandLine : this.commands()) {
-            stringBuilder.append("\t").append(commandLine.getCommand()).append("\t\t\t").append(commandLine.getDescription());
+            stringBuilder.append("\n\t").append(commandLine.getCommand()).append("\t\t\t").append(commandLine.getDescription());
         }
 
         System.out.println(stringBuilder);

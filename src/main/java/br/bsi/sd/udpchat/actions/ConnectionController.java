@@ -63,13 +63,18 @@ public class ConnectionController extends ControllerBase{
                 try {
 
                     ServeUDP serveUDP = new ServeUDP();
-                    serveUDP.onText();
+                    
+                    while (true){
+                        serveUDP.onText();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         };
+
+        threadServidor.start();
 
         while (!isExitChat) {
             System.out.print(this.username+"@"+this.myInet4Address+": ");
