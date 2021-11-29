@@ -21,10 +21,12 @@ public class ConnectionController extends ControllerBase {
             System.out.println(UdpChatApp.APP_NAME + ": To connect it is necessary to enter an ip address. See " + UdpChatApp.APP_NAME + " connect 127.0.0.1");
         }
 
-        User user = new User(this.getConfigUserName(), this.getInet4Address());
-        ConnectionType connectionType = getConnectionType();
-
         try {
+
+            User user = new User(this.getConfigUserName(), this.getInet4Address());
+            //ConnectionType connectionType = getConnectionType();
+            ConnectionType connectionType = ConnectionType.SERVE;
+
             Connection connection = new Connection(args[1], 5000, connectionType);
             ChatAction chatAction = new ChatAction(connection, user);
             chatAction.start();
