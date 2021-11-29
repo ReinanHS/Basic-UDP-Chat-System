@@ -24,11 +24,10 @@ public class ConnectionController extends ControllerBase {
         try {
 
             User user = new User(this.getConfigUserName(), this.getInet4Address());
-            //ConnectionType connectionType = getConnectionType();
-            ConnectionType connectionType = ConnectionType.SERVE;
 
-            Connection connection = new Connection(args[1], 5000, connectionType);
+            Connection connection = new Connection(args[1], 5000, ConnectionType.PEER_TO_PEER);
             ChatAction chatAction = new ChatAction(connection, user);
+
             chatAction.start();
         } catch (Exception exception) {
             exception.printStackTrace();

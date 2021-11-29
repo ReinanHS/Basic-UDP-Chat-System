@@ -36,100 +36,45 @@ public class ChatAction {
         }
     }
 
-    public void start() throws IOException {
-
-        if (this.connection.connectionType == ConnectionType.CLIENT) {
-            this.startClient();
-            return;
-        }
-
-        this.startServer();
-    }
-
-    public void startClient() {
+    public void start() throws Exception {
         System.out.println("system@local: use \\q to exit chat");
         String output = "\\q";
+
+        this.pushBuffer = (new Message(this.user, "A new user has joined the chat")).getBytes();
+        DatagramPacket sendBufferStart = new DatagramPacket(
+                this.pushBuffer,
+                this.pushBuffer.length,
+                this.connection.ipConnection,
+                this.connection.portConnection
+        );
+
+        this.datagramSocket.send(sendBufferStart);
 
         do {
 
             System.out.print(this.user.username+"@"+this.user.ip+": ");
             output = this.scanner.nextLine();
 
-            this.pushBuffer = SerializationUtils.serialize(new Message(this.user, output));
-
-            DatagramPacket sendBuffer = new DatagramPacket(
-                    this.pushBuffer,
-                    this.pushBuffer.length,
-                    this.connection.ipConnection,
-                    this.connection.portConnection
-            );
-
-            DatagramPacket pullPacket = new DatagramPacket(this.pullBuffer, this.pullBuffer.length);
-
             try {
+
+                DatagramPacket pullPacket = new DatagramPacket(this.pullBuffer, this.pullBuffer.length);
+                this.datagramSocket.receive(pullPacket);
+
+                Message message = new Message(pullPacket.getData());
+                System.out.println(message);
+
+                this.pushBuffer = (new Message(this.user, output)).getBytes();
+                DatagramPacket sendBuffer = new DatagramPacket(
+                        this.pushBuffer,
+                        this.pushBuffer.length,
+                        pullPacket.getAddress(),
+                        pullPacket.getPort()
+                );
 
                 this.datagramSocket.send(sendBuffer);
-                this.datagramSocket.receive(pullPacket);
 
-                Message message = (Message) SerializationUtils.deserialize(pullPacket.getData());
 
-                if(!message.user.equals(this.user)) {
-                    System.out.println(message);
-                }
-
-            } catch (IOException e) {
-                System.out.print("system@local: "+e.getMessage());
-            }
-
-        } while (!output.toLowerCase(Locale.ROOT).equals("\\q"));
-
-        this.datagramSocket.close();
-        System.out.println("Bye...");
-    }
-
-    public void startServer() {
-        System.out.println("system@local: use \\q to exit chat");
-        String output = "\\q";
-
-        List<User> users = new ArrayList<>(2);
-        users.add(this.user);
-
-        do {
-
-            System.out.print(this.user.username+"@"+this.user.ip+": ");
-            output = this.scanner.nextLine();
-
-            this.pushBuffer = SerializationUtils.serialize(new Message(this.user, output));
-
-            DatagramPacket pullPacket = new DatagramPacket(this.pullBuffer, this.pullBuffer.length);
-
-            try {
-
-                for (User user : users) {
-
-                    DatagramPacket sendBuffer = new DatagramPacket(
-                            this.pushBuffer,
-                            this.pushBuffer.length,
-                            user.ip,
-                            this.connection.portConnection
-                    );
-
-                    this.datagramSocket.send(sendBuffer);
-                }
-
-                this.datagramSocket.receive(pullPacket);
-                Message message = (Message) SerializationUtils.deserialize(pullPacket.getData());
-
-                if(!message.user.equals(this.user)) {
-                    System.out.println(message);
-
-                    if(!users.contains(message.user)){
-                        users.add(message.user);
-                    }
-
-                }
-
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.print("system@local: "+e.getMessage());
             }
 
