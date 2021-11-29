@@ -4,12 +4,8 @@ import br.bsi.sd.udpchat.enums.ConnectionType;
 import br.bsi.sd.udpchat.models.Connection;
 import br.bsi.sd.udpchat.models.Message;
 import br.bsi.sd.udpchat.models.User;
-import org.apache.commons.lang.SerializationUtils;
 
-import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -17,13 +13,13 @@ public class ChatAction {
     protected final User user;
     protected final Connection connection;
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private DatagramSocket datagramSocket;
 
-    private byte[] pullBuffer = new byte[1024];
+    private final byte[] pullBuffer = new byte[1024];
     private byte[] pushBuffer = new byte[1024];
 
-    public ChatAction(Connection connection, User user) throws UnknownHostException, SocketException {
+    public ChatAction(Connection connection, User user) throws SocketException {
         this.user = user;
         this.connection = connection;
 
@@ -40,15 +36,7 @@ public class ChatAction {
         System.out.println("system@local: use \\q to exit chat");
         String output = "\\q";
 
-        this.pushBuffer = (new Message(this.user, "A new user has joined the chat")).getBytes();
-        DatagramPacket sendBufferStart = new DatagramPacket(
-                this.pushBuffer,
-                this.pushBuffer.length,
-                this.connection.ipConnection,
-                this.connection.portConnection
-        );
-
-        this.datagramSocket.send(sendBufferStart);
+        this.sendMessageToConnection(this.connection, new Message(this.user, "A new user has joined the chat"));
 
         do {
 
@@ -63,16 +51,7 @@ public class ChatAction {
                 Message message = new Message(pullPacket.getData());
                 System.out.println(message);
 
-                this.pushBuffer = (new Message(this.user, output)).getBytes();
-                DatagramPacket sendBuffer = new DatagramPacket(
-                        this.pushBuffer,
-                        this.pushBuffer.length,
-                        pullPacket.getAddress(),
-                        pullPacket.getPort()
-                );
-
-                this.datagramSocket.send(sendBuffer);
-
+                this.sendMessageToConnection(new Connection(pullPacket.getAddress(), pullPacket.getPort(), ConnectionType.PEER_TO_PEER), new Message(this.user, output));
 
             } catch (Exception e) {
                 System.out.print("system@local: "+e.getMessage());
@@ -82,5 +61,17 @@ public class ChatAction {
 
         this.datagramSocket.close();
         System.out.println("Bye...");
+    }
+
+    private void sendMessageToConnection(Connection  connection, Message message) throws Exception {
+        this.pushBuffer = message.getBytes();
+        DatagramPacket sendBufferStart = new DatagramPacket(
+                this.pushBuffer,
+                this.pushBuffer.length,
+                connection.ipConnection,
+                connection.portConnection
+        );
+
+        this.datagramSocket.send(sendBufferStart);
     }
 }
