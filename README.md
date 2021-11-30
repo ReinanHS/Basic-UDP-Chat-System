@@ -1,6 +1,6 @@
-<center>
+<p align="center">
  <img width="300px" height="300px" src="https://github.com/ReinanHS/Basic-UDP-Chat-System/blob/main/.github/docs/assets/logo-project.png" title="Logo"/>
-</center>
+</p>
 
 
 # Basic UDP Chat System
@@ -48,7 +48,7 @@ lucas@192.168.10.11: Hi, Reinan
 ## Authors
 
 - [@reinanhs](https://www.github.com/reinanhs)
-- [@edudevinfo](https://github.com/edudevinfo)
+- [@eduardosantana074ifs](https://github.com/eduardosantana074ifs)
 
 
 
