@@ -48,7 +48,7 @@ lucas@192.168.10.11: Hi, Reinan
 ## Authors
 
 - [@reinanhs](https://www.github.com/reinanhs)
-- [@edudevinfo](https://github.com/edudevinfo)
+- [@eduardosantana074ifs](https://github.com/eduardosantana074ifs)
 
 
 
