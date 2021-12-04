@@ -1,6 +1,6 @@
-package br.bsi.sd.udpchat.console;
+package udpchat.console;
 
-import br.bsi.sd.udpchat.actions.Controller;
+import udpchat.actions.Controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

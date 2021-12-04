@@ -1,9 +1,9 @@
-package br.bsi.sd.udpchat;
+package udpchat;
 
-import br.bsi.sd.udpchat.actions.ConnectionController;
-import br.bsi.sd.udpchat.actions.LicenseController;
-import br.bsi.sd.udpchat.console.CommandLine;
-import br.bsi.sd.udpchat.console.Kernel;
+import udpchat.actions.ConnectionController;
+import udpchat.actions.LicenseController;
+import udpchat.console.CommandLine;
+import udpchat.console.Kernel;
 
 import java.util.ArrayList;
 import java.util.List;

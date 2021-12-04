@@ -1,25 +1,38 @@
-package br.bsi.sd.udpchat.models;
+package udpchat.models;
 
-import br.bsi.sd.udpchat.enums.ConnectionType;
+import udpchat.enums.ConnectionType;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class Connection {
     public InetAddress ipConnection;
-    public int portConnection;
+    public int sendingPort;
+    public int listeningPort;
     public ConnectionType connectionType;
 
-    public Connection(InetAddress ipConnection, int portConnection, ConnectionType connectionType) {
-        this.connectionType = connectionType;
+    public Connection(
+            InetAddress ipConnection,
+            int sendingPort,
+            int listeningPort,
+            ConnectionType connectionType
+    ) {
         this.ipConnection = ipConnection;
-        this.portConnection = portConnection;
+        this.sendingPort = sendingPort;
+        this.listeningPort = listeningPort;
+        this.connectionType = connectionType;
     }
 
-    public Connection(String ipConnection, int portConnection, ConnectionType connectionType) throws UnknownHostException {
-        this.connectionType = connectionType;
+    public Connection(
+            String ipConnection,
+            int sendingPort,
+            int listeningPort,
+            ConnectionType connectionType
+    ) throws UnknownHostException {
         this.ipConnection = InetAddress.getByName(ipConnection);
-        this.portConnection = portConnection;
+        this.sendingPort = sendingPort;
+        this.listeningPort = listeningPort;
+        this.connectionType = connectionType;
     }
 
     public ConnectionType getConnectionType() {
@@ -38,11 +51,11 @@ public class Connection {
         this.ipConnection = ipConnection;
     }
 
-    public int getPortConnection() {
-        return portConnection;
+    public int getSendingPort() {
+        return sendingPort;
     }
 
-    public void setPortConnection(int portConnection) {
-        this.portConnection = portConnection;
+    public void setSendingPort(int sendingPort) {
+        this.sendingPort = sendingPort;
     }
 }

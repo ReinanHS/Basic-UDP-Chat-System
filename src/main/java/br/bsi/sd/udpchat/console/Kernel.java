@@ -1,4 +1,4 @@
-package br.bsi.sd.udpchat.console;
+package udpchat.console;
 
 import java.util.List;
 
@@ -24,23 +24,20 @@ public class Kernel {
      *
      * @param args an array of String arguments to be parsed.
      */
-    public void run(String[] args) {
-
+    public void run(String[] args)
+    {
         if (args.length > 0 && args[0] != null) {
 
             switch (args[0]) {
-                case "--version" -> {
+                case "--version":
                     System.out.println(this.getAppName() + " version " + this.getVersion());
                     return;
-                }
-                case "--help" -> {
+                case "--help":
                     this.usageHelp();
                     return;
-                }
-                default -> {
+                default:
                     this.findActions(args);
                     return;
-                }
             }
         }
 
