@@ -1,4 +1,4 @@
-package udpchat.actions;
+package br.bsi.sd.udpchat.actions;
 
 public class LicenseController extends ControllerBase {
     @Override

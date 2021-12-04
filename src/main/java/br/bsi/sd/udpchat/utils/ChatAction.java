@@ -1,11 +1,13 @@
-package udpchat.utils;
+package br.bsi.sd.udpchat.utils;
+
+import br.bsi.sd.udpchat.models.Connection;
+import br.bsi.sd.udpchat.models.User;
 
 import java.net.*;
 import java.util.Locale;
 import java.util.Scanner;
 
-import udpchat.models.Connection;
-import udpchat.models.User;
+
 
 public class ChatAction {
     protected final User user;

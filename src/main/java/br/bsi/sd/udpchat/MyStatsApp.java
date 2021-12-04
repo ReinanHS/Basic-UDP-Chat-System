@@ -1,4 +1,4 @@
-package udpchat;
+package br.bsi.sd.udpchat;
 
 import java.net.InetAddress;
 import java.util.Scanner;

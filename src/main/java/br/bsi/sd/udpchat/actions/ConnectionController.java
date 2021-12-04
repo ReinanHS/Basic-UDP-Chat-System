@@ -1,10 +1,12 @@
-package udpchat.actions;
+package br.bsi.sd.udpchat.actions;
 
-import udpchat.UdpChatApp;
-import udpchat.enums.ConnectionType;
-import udpchat.models.Connection;
-import udpchat.models.User;
-import udpchat.utils.ChatAction;
+
+
+import br.bsi.sd.udpchat.UdpChatApp;
+import br.bsi.sd.udpchat.enums.ConnectionType;
+import br.bsi.sd.udpchat.models.Connection;
+import br.bsi.sd.udpchat.models.User;
+import br.bsi.sd.udpchat.utils.ChatAction;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;

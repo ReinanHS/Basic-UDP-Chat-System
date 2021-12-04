@@ -1,4 +1,4 @@
-package udpchat.utils;
+package br.bsi.sd.udpchat.utils;
 
 import java.net.*;
 

@@ -1,4 +1,4 @@
-package udpchat.console;
+package br.bsi.sd.udpchat.console;
 
 import java.util.List;
 

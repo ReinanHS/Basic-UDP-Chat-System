@@ -1,6 +1,6 @@
-package udpchat.models;
+package br.bsi.sd.udpchat.models;
 
-import udpchat.enums.ConnectionType;
+import br.bsi.sd.udpchat.enums.ConnectionType;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

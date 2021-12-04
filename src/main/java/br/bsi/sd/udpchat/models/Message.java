@@ -1,4 +1,4 @@
-package udpchat.models;
+package br.bsi.sd.udpchat.models;
 
 import java.io.*;
 import java.util.Objects;
