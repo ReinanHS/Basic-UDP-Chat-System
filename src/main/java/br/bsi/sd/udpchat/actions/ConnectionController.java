@@ -1,10 +1,10 @@
-package br.bsi.sd.udpchat.actions;
+package udpchat.actions;
 
-import br.bsi.sd.udpchat.UdpChatApp;
-import br.bsi.sd.udpchat.enums.ConnectionType;
-import br.bsi.sd.udpchat.models.Connection;
-import br.bsi.sd.udpchat.models.User;
-import br.bsi.sd.udpchat.utils.ChatAction;
+import udpchat.UdpChatApp;
+import udpchat.enums.ConnectionType;
+import udpchat.models.Connection;
+import udpchat.models.User;
+import udpchat.utils.ChatAction;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -17,15 +17,21 @@ public class ConnectionController extends ControllerBase {
     @Override
     public void command(String[] args) {
 
-        if (args.length <= 1) {
-            System.out.println(UdpChatApp.APP_NAME + ": To connect it is necessary to enter an ip address. See " + UdpChatApp.APP_NAME + " connect 127.0.0.1");
+        if (args.length <= 3) {
+            System.out.println(UdpChatApp.APP_NAME + ": To connect it is necessary to enter an IP address and PORT. See " + UdpChatApp.APP_NAME + " connect 127.0.0.1");
         }
 
         try {
 
             User user = new User(this.getConfigUserName(), this.getInet4Address());
 
-            Connection connection = new Connection(args[1], 5000, ConnectionType.PEER_TO_PEER);
+            Connection connection = new Connection(
+                    args[1],
+                    Integer.parseInt(args[2]),
+                    Integer.parseInt(args[3]),
+                    ConnectionType.PEER_TO_PEER
+            );
+            
             ChatAction chatAction = new ChatAction(connection, user);
 
             chatAction.start();

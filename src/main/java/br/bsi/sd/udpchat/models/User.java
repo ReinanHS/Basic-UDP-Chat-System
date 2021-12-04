@@ -1,4 +1,4 @@
-package br.bsi.sd.udpchat.models;
+package udpchat.models;
 
 import java.io.Serializable;
 import java.net.InetAddress;

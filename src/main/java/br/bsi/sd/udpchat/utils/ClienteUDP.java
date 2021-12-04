@@ -1,29 +1,29 @@
-package br.bsi.sd.udpchat.utils;
+package udpchat.utils;
 
 import java.net.*;
 
-public class ClienteUDP {
-    private DatagramSocket datagramSocket;
-
-    public ClienteUDP() throws SocketException {
-        this.datagramSocket = new DatagramSocket();
-    }
-
-    public void sendText(String ipNumber, String text) {
-        this.sendText(ipNumber, 5000, text);
-    }
-
-    public void sendText(String ipNumber, int port, String text) {
-        byte[] cartaAEnviar = text.getBytes();
-
+public class ClienteUDP
+{
+    public static void sendMessage(
+            String message,
+            InetAddress ip,
+            int portTarget,
+            DatagramSocket socket
+    ) {
         try {
+            byte[] cartaAEnviar = new byte[1024];
+            cartaAEnviar = message.getBytes();
+            
+            DatagramPacket envelopeAEnviar = new DatagramPacket(
+                    cartaAEnviar,
+                    cartaAEnviar.length,
+                    ip,
+                    portTarget
+            );
 
-            InetAddress ip = InetAddress.getByName(ipNumber);
-            DatagramPacket envelopeAEnviar = new DatagramPacket(cartaAEnviar, cartaAEnviar.length, ip, port);
-            this.datagramSocket.send(envelopeAEnviar);
-
+            socket.send(envelopeAEnviar);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
