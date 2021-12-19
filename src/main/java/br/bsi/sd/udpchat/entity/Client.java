@@ -4,6 +4,7 @@ import br.bsi.sd.udpchat.interfaces.IUser;
 
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.util.Objects;
 
 public class Client implements IUser, Serializable {
     public int port;
@@ -20,6 +21,19 @@ public class Client implements IUser, Serializable {
         this.port = Integer.parseInt(port);
         this.name = name;
         this.ip = ip;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return port == client.port && Objects.equals(name, client.name) && Objects.equals(ip, client.ip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(port, name, ip);
     }
 
     @Override

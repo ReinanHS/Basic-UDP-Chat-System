@@ -9,7 +9,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Response implements IResponse, Serializable {
-    
     private ArrayList<IUser> userList;
 
     public Response(ArrayList<IUser> userList) {

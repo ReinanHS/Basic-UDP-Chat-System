@@ -9,11 +9,8 @@ import br.bsi.sd.udpchat.utils.ChatAction;
 import br.bsi.sd.udpchat.utils.helps.ClientHelp;
 
 import java.util.Locale;
-import java.util.Scanner;
 
 public class ConnectionController extends ControllerBase {
-    public Scanner scanner = new Scanner(System.in);
-
     @Override
     public void command(String[] args) {
 
