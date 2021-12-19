@@ -106,12 +106,12 @@ public class ConnectionByRegisterController extends ControllerBase {
 
         } while (!output.toLowerCase(Locale.ROOT).equals("\\q"));
 
-        this.datagramSocket.close();
-        System.out.println("Bye...");
+        this.closeConnection();
     }
 
     private void closeConnection() {
         RequestManager.sendRequest(new Request(RotaEnum.EXIT, this.client), this.serveClient, datagramSocket);
+        this.datagramSocket.close();
         System.out.println("Bye...");
         System.exit(1);
     }
