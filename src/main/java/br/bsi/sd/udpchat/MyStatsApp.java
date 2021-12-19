@@ -10,7 +10,8 @@ public class MyStatsApp {
      */
     public static void main(String[] args) {
         UdpChatApp app = new UdpChatApp();
-        app.run(new String[]{"connect", readIp(), readSendingPort(), readListeningPort()});
+        //app.run(new String[]{"connect", readIp(), readSendingPort(), readListeningPort()});
+        app.run(args);
     }
 
     /**

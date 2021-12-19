@@ -1,7 +1,7 @@
 package br.bsi.sd.udpchat.utils;
 
-import br.bsi.sd.udpchat.models.Connection;
-import br.bsi.sd.udpchat.models.User;
+import br.bsi.sd.udpchat.entity.Connection;
+import br.bsi.sd.udpchat.entity.User;
 
 import java.net.*;
 import java.util.Locale;

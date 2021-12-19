@@ -1,15 +1,13 @@
 package br.bsi.sd.udpchat.actions;
 
 
-
 import br.bsi.sd.udpchat.UdpChatApp;
 import br.bsi.sd.udpchat.enums.ConnectionType;
-import br.bsi.sd.udpchat.models.Connection;
-import br.bsi.sd.udpchat.models.User;
+import br.bsi.sd.udpchat.entity.Connection;
+import br.bsi.sd.udpchat.entity.User;
 import br.bsi.sd.udpchat.utils.ChatAction;
+import br.bsi.sd.udpchat.utils.helps.ClientHelp;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -25,7 +23,7 @@ public class ConnectionController extends ControllerBase {
 
         try {
 
-            User user = new User(this.getConfigUserName(), this.getInet4Address());
+            User user = new User(this.getConfigUserName(), ClientHelp.getHostAddress());
 
             Connection connection = new Connection(
                     args[1],
@@ -56,19 +54,6 @@ public class ConnectionController extends ControllerBase {
         } catch (Exception exception) {
             System.out.println("system@app: The value you entered is invalid");
             return this.getConnectionType();
-        }
-    }
-
-    /**
-     * Method to get the customer's ip address
-     *
-     * @return ip
-     */
-    private String getInet4Address() {
-        try {
-            return Inet4Address.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            return "";
         }
     }
 

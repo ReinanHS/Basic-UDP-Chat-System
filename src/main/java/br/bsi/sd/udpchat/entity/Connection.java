@@ -1,4 +1,4 @@
-package br.bsi.sd.udpchat.models;
+package br.bsi.sd.udpchat.entity;
 
 import br.bsi.sd.udpchat.enums.ConnectionType;
 
